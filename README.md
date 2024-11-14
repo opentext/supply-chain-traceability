@@ -1,2 +1,2 @@
-# thrust-services-sample-app
-OpenText Thrust Services sample application
+# supply-chain-traceability
+OpenText Supply chain traceability application
