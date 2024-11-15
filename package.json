@@ -1,0 +1,65 @@
+{
+  "name": "supply-chain-management",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "20.10.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "axios": "1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "http-proxy-middleware": "^2.0.6",
+    "node-jose": "2.2.0",
+    "react": "^17.0.0",
+    "react-data-table-component": "7.6.2",
+    "react-datepicker": "^3.3.0",
+    "react-dom": "^17.0.0",
+    "react-icons": "5.3.0",
+    "react-oidc-context": "^3.2.0",
+    "react-router-dom": "5.2.0",
+    "sass": "1.80.7",
+    "styled-components": "6.1.13",
+    "vite": "^5.4.11",
+    "vite-express": "^0.19.0",
+    "vite-plugin-commonjs": "0.10.3"
+  },
+  "resolutions": {
+    "react-dev-utils": "11.0.4"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "vite build",
+    "lint": "eslint src",
+    "preview": "vite preview"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "overrides": {
+    "react-error-overlay": "6.0.9"
+  },
+  "devDependencies": {
+    "@babel/core": "7.16.0",
+    "@babel/plugin-proposal-private-property-in-object": "7.16.0",
+    "@babel/preset-react": "7.16.0"
+  },
+  "volta": {
+    "node": "20.10.0"
+  }
+}

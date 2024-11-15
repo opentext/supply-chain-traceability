@@ -1,0 +1,203 @@
+.App {
+  height: 100%;
+}
+.page-header {
+  height: 4rem;
+  line-height: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  border: 0;
+  color: #ffffff;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  background: linear-gradient(
+    39.76deg,
+    #0e122b 13.95%,
+    #0f142f 26.75%,
+    #131939 36.86%,
+    #19224a 46.06%,
+    #222e61 54.65%,
+    #243167 56.44%,
+    #23346a 63.97%,
+    #203e72 69.86%,
+    #1b4f7f 75.2%,
+    #146693 80.2%,
+    #0b84ab 83.33%,
+    #088cb2 86.05%
+  );
+  .logo {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  .header-title {
+    display: flex;
+    font-size: 1.25rem;
+    align-items: center;
+    margin: auto;
+  }
+
+  .header-menu {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: #00639b;
+    text-align: center;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+    .ot-btn {
+      border: none;
+      background: #00639b;
+      padding: unset;
+      background: transparent;
+      min-width: unset;
+      min-height: unset;
+      padding: unset;
+      color: white;
+      font-size: 0.8em;
+      text-transform: uppercase;
+    }
+  }
+
+  .header-menu > button > span.MuiButton-label {
+    color: white;
+  }
+
+  .page-header-home-icon-container{
+    width: 20vw;
+    padding-left: 1rem;
+    .page-header-home-icon{
+      cursor: pointer;
+    }
+  }
+  .page-header-logo-container{
+    width: 60vw;
+  }
+  .page-header-right-icons{
+    width: 20vw;
+    float: right;
+    padding-right: 2rem;
+  }
+
+}
+
+.app_content{
+  position: relative;
+  padding-top: 4rem;
+  .MuiGrid-container {
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.login-dialog {
+  .title-icon {
+    float: right;
+  }
+}
+
+.configuration-dialog {
+  margin: 20px;
+
+  .top-margin {
+    margin-top: 20px;
+  }
+
+  .message {
+    font-weight: bold;
+    color: #63a84e;
+    margin-top: 20px !important;
+  }
+
+  .message.error {
+    color: #da4148;
+  }
+}
+
+.page-content {
+  height: calc(100% - 4rem);
+  overflow-y: auto;
+  > div {
+    height: calc(100% - 3rem);
+    > div {
+      height: 100%;
+      > div {
+        height: 100%;
+        > button {
+          height: 2.5rem;
+          text-transform: none;
+        }
+        > .invoice-page {
+          height: calc(100% - 2.5rem);
+        }
+      }
+    }
+  }
+  > div.MuiTabs-root {
+    height: 3rem;
+  }
+
+  .content-header {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    height: 3rem;
+    padding: 0 1rem;
+    background-color: #dce4e8;
+  }
+
+  .MuiTableRow-head {
+    background-color: #e1e1e1;
+    .MuiTableCell-head {
+      font-weight: bold;
+    }
+  }
+
+  .tab-caption {
+    background-color: #e2e2e2;
+  }
+}
+
+.align-left {
+  float: left;
+  margin-inline-start: 5px;
+}
+.align-right {
+  float: right;
+  margin-inline-end: 5px;
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+}
+.ot-amount-column {
+  min-width: 20rem !important;
+}
+
+.ot-invoiceNumber-column {
+  min-width: 5rem !important;
+}
+.ot-invoiceNumber-column {
+  min-width: 5rem !important;
+  width: 5rem !important;
+}
+.ot-poNumber-column {
+  min-width: 8rem !important;
+  width: 8rem !important;
+}
+.dashboard-chart-container {
+  border: 2px;
+  padding: 16px;
+  margin: 8px;
+  box-shadow: 0px 0px 1px 0px grey;
+  border-radius: 5px;
+  background-color: #fff;
+}

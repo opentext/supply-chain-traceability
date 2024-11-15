@@ -1,0 +1,8 @@
+#file-viewer-root {
+  height: calc(90vh - 50px);
+  /* depends on the header */
+}
+
+#file-viewer-root .ot-iv-Toolbar-title {
+  display: none !important;
+}

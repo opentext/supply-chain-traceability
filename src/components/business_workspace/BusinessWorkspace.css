@@ -1,0 +1,74 @@
+#ca-folder-widget {
+  height: inherit;
+
+  &.binf-widgets {
+    .cs-perspective-panel {
+      height: 100%;
+    }
+    .binf-breadcrumb {
+      margin-bottom: 0;
+      max-width: 100%;
+      border-radius: 0;
+      > li:not(.binf-hidden) + li:before {
+        content: "\00a0";
+      }
+    }
+    .cs-perspective-with-breadcrumb-view.csui-breadcrumbs-visible
+      .csui-perspective-view {
+      height: 100%;
+      > div {
+        height: 100%;
+        .cs-header {
+          display: none;
+        }
+        .cs-content {
+          height: 100%;
+          .tab-panel {
+            height: 100%;
+            .tab-links {
+              display: none;
+            }
+            .binf-tab-content {
+              height: 100%;
+              padding-top: 0;
+              .binf-tab-pane {
+                height: 100%;
+                .binf-row {
+                  height: 100%;
+                  > div {
+                    height: 100%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.fd3 {
+  padding-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.page-title {
+  font-size: xx-large;
+  font-weight: 500;
+  color: black;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+.page-header-wc {
+  height: 1vmax;
+  padding-top: 1vmax;
+  padding-left: 0.4vmax;
+  padding-bottom: 1vmax;
+}
+
+.add-file {
+  margin-left: 0.8rem;
+}
