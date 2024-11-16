@@ -1,0 +1,13 @@
+# Ignore artifacts:
+build
+coverage
+resources
+public
+test_documents
+.gitlab-ci.yml
+README.md
+vite.config.js
+server.js
+package-lock.json
+.stylelintrc.json
+eslint.config.js

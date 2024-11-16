@@ -1,14 +1,14 @@
 import React from "react";
 import "./Spinner.scss";
 
-const Spinner = () => {
+function Spinner() {
   return (
     <div className="spinner-container">
-      <div className="spinner-border"></div>
-      <div className="spinner-base"></div>
-      <div className="spinner-section"></div>
+      <div className="spinner-border" />
+      <div className="spinner-base" />
+      <div className="spinner-section" />
     </div>
   );
-};
+}
 
 export default Spinner;

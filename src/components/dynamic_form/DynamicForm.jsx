@@ -1,10 +1,12 @@
-import React from "react";
-import "./DynamicForm.scss";
-import { classNames } from "../../utilities/Utils";
-import { Input, TextField } from "@material-ui/core";
+/* eslint-disable react/prop-types */
+import './DynamicForm.scss';
+import { Input, TextField } from '@mui/material';
+import { classNames } from '../../utilities/Utils';
 
-const DynamicForm = ({ label, fields, id, mode }) => {
-  const className = classNames("ot-dynamic-form__fields", {
+function DynamicForm({
+  label, fields, id,
+}) {
+  const className = classNames('ot-dynamic-form__fields', {
     [id]: id,
   });
 
@@ -14,39 +16,51 @@ const DynamicForm = ({ label, fields, id, mode }) => {
     fields.entries.forEach((entry, index) => {
       const { name, type, value } = entry;
       fieldsEntries.push(
-        <div {...{ className: "control-fields" }} key={`${name}${index}`}>
-          {type === "label" && <label>{value}</label>}
-          {type === "input" && (
-            <>
-              <TextField
-                disabled={mode === "readonly"}
-                type="text"
-                label={name}
-                id="name_input"
-                value={value}
-                placeholder=""
-                required={false}
-              />
-            </>
+        // eslint-disable-next-line react/no-array-index-key
+        <div {...{ className: 'control-fields' }} key={`${name}${index}`}>
+          {type === 'label' && <label htmlFor={name}>{value}</label>}
+          {type === 'input' && (
+            <TextField
+              type="text"
+              label={name}
+              id={name}
+              value={value}
+              required={false}
+              variant="standard"
+              slotProps={{
+                input: {
+                  readOnly: true,
+                },
+              }}
+            />
           )}
-          {type === "date" && (
+          {type === 'date' && (
             <Input
               type="date"
               label={name}
-              dateFormat={"dd-MM-yyyy"}
-              showCalendarIcon={true}
+              dateFormat="dd-MM-yyyy"
+              showCalendarIcon
               id="withCalendarIconDP"
               value={value || ''}
             />
           )}
-        </div>
+        </div>,
       );
     });
 
     return fieldsEntries;
   };
 
-  return <div className={className}>{label && <div className="control-fields" style={{ fontWeight: "bold" }}>{label}</div>}{renderFieldsByEntries()}</div>;
-};
+  return (
+    <div className={className}>
+      {label && (
+        <div className="control-fields" style={{ fontWeight: 'bold' }}>
+          {label}
+        </div>
+      )}
+      {renderFieldsByEntries()}
+    </div>
+  );
+}
 
 export default DynamicForm;

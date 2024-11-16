@@ -1,152 +1,68 @@
-import React, { useState, useEffect } from "react";
-import { Backdrop, CircularProgress } from "@material-ui/core";
-import "./App.scss";
-import Header from "./components/header/Header";
-import AppContext from "./context/AppContext";
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect, useContext } from 'react';
+import { Backdrop, CircularProgress } from '@mui/material';
+import './App.scss';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useAuth } from 'react-oidc-context';
+import Header from './components/header/Header';
 
-import InspectionPage from "./components/inspection_page/InspectionPage";
-import NewWelcomeScreen from "./components/welcome_screen/WelcomeScreen";
-import BusinessWorkspace from "./components/business_workspace/BusinessWorkspace";
-import CustomToast from "./components/common/custom_toast/CustomToast"
-import { AuthProvider, useAuth } from "react-oidc-context";
-import OidcConfig from "./components/auth/oidc-config";
+import InspectionPage from './components/inspection_page/InspectionPage';
+import NewWelcomeScreen from './components/welcome_screen/WelcomeScreen';
+import BusinessWorkspace from './components/business_workspace/BusinessWorkspace';
+import CustomToast from './components/common/custom_toast/CustomToast';
+import AppContext from './store/context/app-context';
 
 function App() {
-  const [cmAccessToken, setCMAccessToken] = useState('');
-  const [captureAccessToken, setCaptureAccessToken] = useState('');
-  const [extractionData, setExtractionData] = useState({});
-  const [publicationData, setPublicationData] = useState({});
-  const [toastDetails, setToastDetails] = useState({
-    type: "",
-    isToastOpen: false,
-    message: "",
-  });
-  const [showBackdrop, setShowBackdrop] = useState(false);
-  const [rowData, setRowData] = useState([]);
-
-   const { isAuthenticated, isLoading, user, signinRedirect, signoutRedirect } =
-    useAuth();
+  const {
+    isAuthenticated, isLoading, user, signinRedirect, signoutRedirect,
+  } = useAuth();
+  const { toastDetails, closeToast, showBackdrop } = useContext(AppContext);
 
   useEffect(() => {
-     if (isLoading) {
-     } else if (!isAuthenticated) {
-       signinRedirect();
-     }
-   }, [
-     isAuthenticated,
-     isLoading,
-     signinRedirect,
-     user,
-   ]);
+    if (!isLoading && !isAuthenticated) {
+      signinRedirect();
+    }
+  }, [isAuthenticated, isLoading, signinRedirect]);
 
-   useEffect(() => {
-     if (isAuthenticated) {
-       if (user?.access_token) {
-         
-       } else {
-         signinRedirect();
-       }
-     }
-   }, [
-     isAuthenticated,
-     signinRedirect,
-     user,
-   ]);
-
-  const startLoading = () => {
-    if (!showBackdrop) setShowBackdrop(true);
-  };
-  const stopLoading = () => {
-    setShowBackdrop(false);
-  };
-
-  const appContext = {
-    setToastDetails,
-    startLoading,
-    stopLoading,
-    cmAccessToken,
-    setCMAccessToken,
-    extractionData,
-    setExtractionData,
-    publicationData,
-    setPublicationData,
-    captureAccessToken,
-    setCaptureAccessToken
-  };
-
-  const logoutWithIdTokenHint = () => {
-      
-  }
-
-  const closeToast = () => {
-    setToastDetails({
-      type: "",
-      isToastOpen: false,
-      message: "",
-    });
-  };
   return (
     <div className="App" hidden={!isAuthenticated}>
-      <AppContext.Provider value={appContext}>
-        <BrowserRouter>
-          <Header logout={logoutWithIdTokenHint} />
-          {toastDetails.isToastOpen && (
-            <CustomToast
-              type={toastDetails.type}
-              isOpen={toastDetails.isToastOpen}
-              autoDismiss="5000"
-              onClose={closeToast}
-            >
-              <span title={toastDetails.message}>{toastDetails.message}</span>
-            </CustomToast>
-          )}
-          <Backdrop style={{ zIndex: 999999 }} open={showBackdrop}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
+      <Header logout={signoutRedirect} />
+      {toastDetails.isToastOpen && (
+        <CustomToast
+          type={toastDetails.type}
+          isOpen={toastDetails.isToastOpen}
+          autoDismiss="5000"
+          onClose={closeToast}
+        >
+          <span title={toastDetails.message}>{toastDetails.message}</span>
+        </CustomToast>
+      )}
+      <Backdrop style={{ zIndex: 999999 }} open={showBackdrop}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <BrowserRouter>
+        <div className="app_content">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={<NewWelcomeScreen name={user?.profile?.name} />}
+            />
 
-          <div className="app_content">
-            <Switch>
-              <Route
-                exact={true}
-                path="/"
-                render={(props) => (
-                  <NewWelcomeScreen {...props} name={user?.profile?.name} />
-                )}
-              />
-
-              <Route
-                path="/upload"
-                render={(props) => (
-                  <InspectionPage
-                    {...props}
-                    rowData={rowData}
-                    setRowData={setRowData}
-                  />
-                )}
-              />
-              <Route
-                path="/inspection/:nodeId"
-                render={(props) => <BusinessWorkspace {...props} />}
-              />
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </AppContext.Provider>
+            <Route path="/upload" element={<InspectionPage />} />
+            <Route path="/inspection/:nodeId" element={<BusinessWorkspace />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
 
-function WrappedSecuredApp() {
-  return (
-    <AuthProvider {...OidcConfig}>
-      <App  />
-    </AuthProvider>
-  );
-}
+// function WrappedSecuredApp() {
+//   return (
+//     <AuthProvider {...OidcConfig}>
+//       <App  />
+//     </AuthProvider>
+//   );
+// }
 
-export default WrappedSecuredApp;
+export default App;

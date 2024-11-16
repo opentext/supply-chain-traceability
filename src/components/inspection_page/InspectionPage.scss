@@ -23,13 +23,19 @@
         margin-bottom: 8px;
       }
     }
-    .eswm-dynamic-forms-fields{
+    .eswm-dynamic-forms-fields {
       height: calc(90vh - 50px);
       overflow: auto;
     }
-    .form_layout{
+    .form_layout {
       border-right: solid 1px lightgray;
     }
+
+    
+  }
+
+  .inspection-header {
+    justify-content: space-between;
   }
 
   [data-column-id="name"] {
@@ -79,7 +85,7 @@
   .datatable-wrapper {
     margin: 10px 20px;
     min-height: 200px !important;
-    .rdt_TableBody{
+    .rdt_TableBody {
       max-height: 11rem;
       overflow-y: auto;
     }
@@ -284,7 +290,7 @@
     background-color: #232e72;
     color: white;
   }
-  .form-custom-input{
+  .form-custom-input {
     margin-bottom: 5px;
     label {
       font-size: 12px;
@@ -293,10 +299,10 @@
       margin-bottom: 2px;
       display: flex;
       span {
-          color: #df3324;
+        color: #df3324;
       }
     }
-    input{
+    input {
       border: none;
       border-bottom: 1px solid #666666;
       background-color: #efefef;
@@ -307,7 +313,7 @@
       color: #333333;
       font-size: 14px;
     }
-    input:focus{
+    input:focus {
       outline: none;
       border-bottom: 2px solid #2e3d98;
     }
@@ -319,7 +325,7 @@
       right: 0.4rem;
       top: 1.8rem;
     }
-    textarea{
+    textarea {
       display: block;
       padding: 4px 8px;
       resize: none;
@@ -340,18 +346,18 @@
       outline: none;
       border-bottom: 2px solid #2e3d98;
     }
-    .MuiInputBase-root{
+    .MuiInputBase-root {
       width: 100%;
       font-size: 14px;
       padding: 1px 0px 2px 0px;
     }
-    #custom-select-native{
+    #custom-select-native {
       background-color: rgba(0, 0, 0, 0.05);
       padding-left: 6px;
     }
   }
-  .react-datepicker-wrapper{
-      width: 100%;
+  .react-datepicker-wrapper {
+    width: 100%;
   }
   @keyframes spin {
     from {

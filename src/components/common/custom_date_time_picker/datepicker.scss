@@ -7,21 +7,19 @@ $datepicker__muted-color: #ccc !default;
 $datepicker__selected-color: #216ba5 !default;
 $datepicker__text-color: #000 !default;
 $datepicker__header-color: #000 !default;
-$datepicker__navigation-disabled-color: color.adjust($datepicker__muted-color,$lightness: 10%)
-  !default;
+$datepicker__navigation-disabled-color: color.adjust(
+  $datepicker__muted-color,
+  $lightness: 10%
+) !default;
 
 $datepicker__border-radius: 0.3rem !default;
 $datepicker__day-margin: 0.166rem !default;
 $datepicker__font-size: 0.8rem !default;
-$datepicker__font-family: "Helvetica Neue", Helvetica, Arial,
-  sans-serif !default;
+$datepicker__font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $datepicker__item-size: 1.7rem !default;
 $datepicker__margin: 0.4rem !default;
 $datepicker__navigation-size: 0.45rem !default;
 $datepicker__triangle-size: 8px !default;
-
-
-
 
 %triangle-arrow {
   margin-left: -$datepicker__triangle-size;
@@ -82,7 +80,6 @@ $datepicker__triangle-size: 8px !default;
     border-top-color: $datepicker__border-color;
   }
 }
-
 
 .react-datepicker-wrapper {
   display: inline-block;
@@ -237,7 +234,10 @@ $datepicker__triangle-size: 8px !default;
     border-right-color: $datepicker__muted-color;
 
     &:hover {
-      border-right-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+      border-right-color: color.adjust(
+        $datepicker__muted-color,
+        $lightness: -10%
+      );
     }
 
     &--disabled,
@@ -255,7 +255,10 @@ $datepicker__triangle-size: 8px !default;
     }
 
     &:hover {
-      border-left-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+      border-left-color: color.adjust(
+        $datepicker__muted-color,
+        $lightness: -10%
+      );
     }
 
     &--disabled,
@@ -277,7 +280,10 @@ $datepicker__triangle-size: 8px !default;
       border-top-color: $datepicker__muted-color;
 
       &:hover {
-        border-top-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+        border-top-color: color.adjust(
+          $datepicker__muted-color,
+          $lightness: -10%
+        );
       }
     }
 
@@ -286,7 +292,10 @@ $datepicker__triangle-size: 8px !default;
       border-bottom-color: $datepicker__muted-color;
 
       &:hover {
-        border-bottom-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+        border-bottom-color: color.adjust(
+          $datepicker__muted-color,
+          $lightness: -10%
+        );
       }
     }
   }
@@ -462,7 +471,10 @@ $datepicker__triangle-size: 8px !default;
     color: #fff;
 
     &:hover {
-      background-color: color.adjust($datepicker__selected-color, $lightness: -5%);
+      background-color: color.adjust(
+        $datepicker__selected-color,
+        $lightness: -5%
+      );
     }
   }
   &--disabled {
@@ -496,7 +508,10 @@ $datepicker__triangle-size: 8px !default;
     color: #fff;
 
     &:hover {
-      background-color: color.adjust($datepicker__highlighted-color, $lightness: -5%);
+      background-color: color.adjust(
+        $datepicker__highlighted-color,
+        $lightness: -5%
+      );
     }
 
     &-custom-1 {
@@ -516,17 +531,26 @@ $datepicker__triangle-size: 8px !default;
     color: #fff;
 
     &:hover {
-      background-color: color.adjust($datepicker__selected-color,$lightness: -5%);
+      background-color: color.adjust(
+        $datepicker__selected-color,
+        $lightness: -5%
+      );
     }
   }
 
   &--keyboard-selected {
     border-radius: $datepicker__border-radius;
-    background-color: color.adjust($datepicker__selected-color, $lightness: 10%);
+    background-color: color.adjust(
+      $datepicker__selected-color,
+      $lightness: 10%
+    );
     color: #fff;
 
     &:hover {
-      background-color: color.adjust($datepicker__selected-color,$lightness: -5%);
+      background-color: color.adjust(
+        $datepicker__selected-color,
+        $lightness: -5%
+      );
     }
   }
 
@@ -583,7 +607,10 @@ $datepicker__triangle-size: 8px !default;
 
     .react-datepicker__year-read-view--down-arrow,
     .react-datepicker__month-read-view--down-arrow {
-      border-top-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+      border-top-color: color.adjust(
+        $datepicker__muted-color,
+        $lightness: -10%
+      );
     }
   }
 
@@ -648,11 +675,17 @@ $datepicker__triangle-size: 8px !default;
     background-color: $datepicker__muted-color;
 
     .react-datepicker__navigation--years-upcoming {
-      border-bottom-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+      border-bottom-color: color.adjust(
+        $datepicker__muted-color,
+        $lightness: -10%
+      );
     }
 
     .react-datepicker__navigation--years-previous {
-      border-top-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+      border-top-color: color.adjust(
+        $datepicker__muted-color,
+        $lightness: -10%
+      );
     }
   }
 
@@ -744,7 +777,10 @@ $datepicker__triangle-size: 8px !default;
     border-right-color: $datepicker__muted-color;
 
     &:hover {
-      border-right-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+      border-right-color: color.adjust(
+        $datepicker__muted-color,
+        $lightness: -10%
+      );
     }
 
     &--disabled,
@@ -758,7 +794,10 @@ $datepicker__triangle-size: 8px !default;
     border-left-color: $datepicker__muted-color;
 
     &:hover {
-      border-left-color: color.adjust($datepicker__muted-color, $lightness: -10%);
+      border-left-color: color.adjust(
+        $datepicker__muted-color,
+        $lightness: -10%
+      );
     }
 
     &--disabled,

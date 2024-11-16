@@ -19,17 +19,16 @@ const classNames = (...args) => {
 const getEllipses = (name, threshold) => {
   if (threshold === 0) return name;
   if (name?.length > threshold) {
-    return name.substring(0, threshold - 1) + "...";
-  } else return name;
+    return `${name.substring(0, threshold - 1)}...`;
+  }
+  return name;
 };
-
 
 const getGreetingMessage = () => {
   const hours = new Date().getHours();
   const isDayTime = hours < 17;
   return `Good ${isDayTime ? "morning" : "evening"}`;
 };
-
 
 const getLoggedInUserIcon = (name) => {
   let userIcon = "";
@@ -42,6 +41,4 @@ const getLoggedInUserIcon = (name) => {
   return userIcon;
 };
 
-
-
-export { classNames, getEllipses, getGreetingMessage, getLoggedInUserIcon }
+export { classNames, getEllipses, getGreetingMessage, getLoggedInUserIcon };

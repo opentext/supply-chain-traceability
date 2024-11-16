@@ -17,14 +17,14 @@ const sampleLayout = {
   },
 };
 
-const FileViewer = ({
+function FileViewer({
   closeDialog,
   publicationData,
   accessToken,
   setIsViewerLoading,
   setIsViewerLoaded,
   viewer,
-}) => {
+}) {
   const [bravaApi, setBravaApi] = useState(null);
   const publicationStatus = "Complete";
 
@@ -38,13 +38,14 @@ const FileViewer = ({
     if (!viewer) {
       await axios
         .get(
-          process.env.REACT_APP_BASE_URL +
-            "/viewer/api/v1/viewers/brava-view-1.x/loader",
+          `${
+            process.env.REACT_APP_BASE_URL
+          }/viewer/api/v1/viewers/brava-view-1.x/loader`,
           {
             headers: {
               Authorization: `Bearer ${accessToken.access_token}`,
             },
-          }
+          },
         )
         .then((res) => {
           if (res.data) {
@@ -58,36 +59,33 @@ const FileViewer = ({
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.addEventListener("bravaReady", function (event) {
+    window.addEventListener("bravaReady", (event) => {
       const currentOrigin = window.location.origin;
       if (event.origin && event.origin !== currentOrigin) {
         return;
       }
       if (event.target && event.target.origin === currentOrigin) {
-        window.addEventListener(event["detail"] + "-close", function () {
+        window.addEventListener(`${event.detail}-close`, () => {
           closeDialog?.();
           setIsViewerLoaded(false);
         });
-        window.addEventListener(
-          event["detail"] + "-failureNotification",
-          function (e) {
-            if (e.detail.type === "svgPageLoadFailure") {
-              let viewer = window.viewerApi;
-              viewer.clearViewer();
-              viewer.viewPublication(e.detail.details.pid);
-            }
+        window.addEventListener(`${event.detail}-failureNotification`, (e) => {
+          if (e.detail.type === "svgPageLoadFailure") {
+            const viewer = window.viewerApi;
+            viewer.clearViewer();
+            viewer.viewPublication(e.detail.details.pid);
           }
-        );
-        window.viewerApi = window[event["detail"]];
-        setBravaApi(window[event["detail"]]);
+        });
+        window.viewerApi = window[event.detail];
+        setBravaApi(window[event.detail]);
       }
-      //setBravaApi(window[event["detail"]]);
+      // setBravaApi(window[event["detail"]]);
       // openProperties(true);
       setIsViewerLoading(false);
       setIsViewerLoaded(true);
     });
     loadBravaViewer();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -99,14 +97,14 @@ const FileViewer = ({
       bravaApi.setLayout(sampleLayout);
       bravaApi.render(VIEWER_ID);
     }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bravaApi, publicationData]);
 
   if (publicationStatus !== "Complete") {
     return null;
   }
 
-  return <div id={VIEWER_ID}></div>;
-};
+  return <div id={VIEWER_ID} />;
+}
 
 export default FileViewer;

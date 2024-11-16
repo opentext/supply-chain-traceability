@@ -1,25 +1,22 @@
-import React from 'react'
+import React from "react";
 import "./ImageTile.scss";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 function ImageTile({ title, image, link, externalUrl }) {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    if(externalUrl) {
-      window.open(externalUrl, "_self")
+    if (externalUrl) {
+      window.open(externalUrl, "_blank");
     } else {
-      history.push(link);
+      navigate(link);
     }
   };
   return (
     <div className="imageTile" onClick={handleClick}>
       <div className="imageTileContainer">
         <div>
-          <img
-            alt={title}
-            src={image}
-            className="imageTileImage"
-          />
+          <img alt={title} src={image} className="imageTileImage" />
           <div className="imageTileOverlay" />
           <div className="imageTileText">{title}</div>
         </div>

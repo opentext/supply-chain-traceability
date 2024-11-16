@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import { Menu, MenuItem } from "@material-ui/core";
-import { getLoggedInUserIcon } from "../../utilities/Utils";
-import { useAuth } from "react-oidc-context";
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useState } from 'react';
+import { Menu, MenuItem } from '@mui/material';
+import { useAuth } from 'react-oidc-context';
+import PropTypes from 'prop-types';
+import { getLoggedInUserIcon } from '../../utilities/Utils';
 
 function Header(props) {
+  const { logout } = props;
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -17,7 +21,7 @@ function Header(props) {
   };
 
   const logUserOut = () => {
-    props.logout(true, user.access_token);
+    logout(true, user.access_token);
     handleClose();
   };
 
@@ -28,15 +32,14 @@ function Header(props) {
           src="./images/home-icon.svg"
           alt="Home"
           className="page-header-home-icon"
-          onClick={() =>
-            window.open(process.env.REACT_APP_REDIRECT_URI, "_self")
-          }
+          onClick={() => window.open(process.env.REACT_APP_REDIRECT_URI, '_self')}
         />
       </div>
       <div className="page-header-logo-container">
         <div className="logo">
           <div className="header-title">
-            <img src="./images/logo.svg" alt="Opentext Invoice management" />{" "}
+            <img src="./images/logo.svg" alt="Opentext Invoice management" />
+            {' '}
           </div>
         </div>
       </div>
@@ -44,13 +47,15 @@ function Header(props) {
       <div className="page-header-right-icons">
         <div className="header-menu">
           <button
+            type="button"
             aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={handleClick}
             style={{
-              border: "none",
-              backgroundColor: "transparent",
-              color: "white",
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: 'white',
+              cursor: 'pointer',
             }}
           >
             <span className="ot-header__icon">
@@ -58,8 +63,11 @@ function Header(props) {
             </span>
           </button>
           <Menu
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            getContentAnchorEl={null}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
@@ -72,5 +80,9 @@ function Header(props) {
     </header>
   );
 }
+
+Header.propTypes = {
+  logout: PropTypes.func,
+};
 
 export default Header;

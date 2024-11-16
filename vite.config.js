@@ -45,5 +45,12 @@ export default defineConfig((command, mode) => {
       },
     },
     define: processEnvValues,
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler' // or "modern"
+        }
+      }
+    },
   };
 });

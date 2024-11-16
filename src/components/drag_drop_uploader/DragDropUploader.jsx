@@ -1,64 +1,64 @@
-import { Button } from "@material-ui/core";
-import React, { useState, useRef } from 'react';
-import "./DragDropUploader.scss";
-import { useContext } from 'react';
-import AppContext from '../../context/AppContext';
+import { Button } from '@mui/material';
+import { useState, useRef, useContext } from 'react';
+import './DragDropUploader.scss';
+
+import { useAuth } from 'react-oidc-context';
+import PropTypes from 'prop-types';
+import AppContext from '../../store/context/app-context';
 import { uploadFileToCapture } from '../../services/capture/capture';
-import CustomToast from "../common/custom_toast/CustomToast"
-import { useAuth } from "react-oidc-context";
-import { uploadFileToCoreContent } from "../../services/content_storage/ContenStorage";
+import CustomToast from '../common/custom_toast/CustomToast';
+import { uploadFileToCoreContent } from '../../services/content_storage/ContentStorage';
 
-
-const DragDropUploader = ({cmAccessToken, captureAccessToken, refreshTable, updatePublicationData}) => {
-  
+function DragDropUploader({
+  refreshTable,
+  updatePublicationData,
+}) {
   const { user, signoutRedirect } = useAuth();
 
   const { setExtractionData } = useContext(AppContext);
   const fileInputRef = useRef(null);
-  const toastMessage =
-    "Please wait, as we automatically classify the content and upload to Content Cloud.";
+  const toastMessage = 'Please wait, as we automatically classify the content and upload to Content Cloud.';
 
-   const [toastDetails, setToastDetails] = useState({
-     type: "",
-     isToastOpen: false,
-     message: "",
-   });
+  const [toastDetails, setToastDetails] = useState({
+    type: '',
+    isToastOpen: false,
+    message: '',
+  });
 
   const handleDragOver = (e) => {
-    e.target.style.background = "#395485";
+    e.target.style.background = '#395485';
     e.preventDefault();
     e.stopPropagation();
   };
 
   const handleDragLeave = (e) => {
-    e.target.style.background = "none";
-  }
+    e.target.style.background = 'none';
+  };
 
-    const closeToast = () => {
-      setToastDetails({
-        type: "",
-        isToastOpen: false,
-        message: "",
-      });
-    };
+  const closeToast = () => {
+    setToastDetails({
+      type: '',
+      isToastOpen: false,
+      message: '',
+    });
+  };
 
-  const handleDrop = async (e) => {
-  setToastDetails({
-    type: "info",
-    isToastOpen: true,
-    message:toastMessage,
-  });
-    e.target.style.background = "none";
+  const handleDrop = (e) => {
+    setToastDetails({
+      type: 'info',
+      isToastOpen: true,
+      message: toastMessage,
+    });
+    e.target.style.background = 'none';
     e.preventDefault();
     const droppedFiles = e.dataTransfer.files;
 
     if (droppedFiles.length > 0) {
-      uploadFileToCapture(droppedFiles,setExtractionData,captureAccessToken);
+      uploadFileToCapture(droppedFiles, setExtractionData, user.access_token);
       const newFiles = [];
-      for (let i = 0; i < droppedFiles.length; i++) {
-
+      for (let i = 0; i < droppedFiles.length; i += 1) {
         const file = droppedFiles[i];
- 
+
         const reader = new FileReader();
 
         reader.onload = async () => {
@@ -71,17 +71,16 @@ const DragDropUploader = ({cmAccessToken, captureAccessToken, refreshTable, upda
 
           newFiles.push(fileData);
           // Perform upload logic here using the `newFiles` array
-           await uploadFileToCoreContent(
-             fileData.content,
-             cmAccessToken,
-             user,
-             fileData,
-             refreshTable,
-             updatePublicationData,
-             signoutRedirect
-           ).then(async () => {
-             refreshTable.bind(this);
-           });
+          await uploadFileToCoreContent(
+            fileData.content,
+            user,
+            fileData,
+            refreshTable,
+            updatePublicationData,
+            signoutRedirect,
+          ).then(() => {
+            refreshTable.bind(this);
+          });
         };
 
         reader.readAsArrayBuffer(file);
@@ -89,23 +88,22 @@ const DragDropUploader = ({cmAccessToken, captureAccessToken, refreshTable, upda
     }
   };
 
-  const handleFileChange = async (e) => {
-      setToastDetails({
-        type: "info",
-        isToastOpen: true,
-        message: toastMessage,
-      });
+  const handleFileChange = (e) => {
+    setToastDetails({
+      type: 'info',
+      isToastOpen: true,
+      message: toastMessage,
+    });
     const newFiles = [];
- 
-    if(e.target.files.length > 0){
-      uploadFileToCapture(e.target.files,setExtractionData,captureAccessToken);
-    }
-    
-    for (let i = 0; i < e.target.files.length; i++) {
-      const file = e.target.files[i];
-     
 
-    const reader = new FileReader();
+    if (e.target.files.length > 0) {
+      uploadFileToCapture(e.target.files, setExtractionData, user.access_token);
+    }
+
+    for (let i = 0; i < e.target.files.length; i += 1) {
+      const file = e.target.files[i];
+
+      const reader = new FileReader();
       reader.onload = async () => {
         const fileData = {
           name: file.name,
@@ -117,19 +115,17 @@ const DragDropUploader = ({cmAccessToken, captureAccessToken, refreshTable, upda
         newFiles.push(fileData);
 
         // Perform upload logic here using the `newFiles` array
-          await uploadFileToCoreContent(
-            fileData.content,
-            cmAccessToken,
-            user,
-            fileData,
-            refreshTable,
-            updatePublicationData,
-            signoutRedirect
-          ).then(async () => {
-            refreshTable.bind(this);
-          });
+        await uploadFileToCoreContent(
+          fileData.content,
+          user,
+          fileData,
+          refreshTable,
+          updatePublicationData,
+          signoutRedirect,
+        ).then(() => {
+          refreshTable.bind(this);
+        });
       };
-
 
       reader.readAsArrayBuffer(file);
     }
@@ -180,6 +176,11 @@ const DragDropUploader = ({cmAccessToken, captureAccessToken, refreshTable, upda
       )}
     </div>
   );
+}
+
+DragDropUploader.propTypes = {
+  refreshTable: PropTypes.func,
+  updatePublicationData: PropTypes.func,
 };
 
 export default DragDropUploader;

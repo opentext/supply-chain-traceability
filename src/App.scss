@@ -71,25 +71,24 @@
     color: white;
   }
 
-  .page-header-home-icon-container{
+  .page-header-home-icon-container {
     width: 20vw;
     padding-left: 1rem;
-    .page-header-home-icon{
+    .page-header-home-icon {
       cursor: pointer;
     }
   }
-  .page-header-logo-container{
+  .page-header-logo-container {
     width: 60vw;
   }
-  .page-header-right-icons{
+  .page-header-right-icons {
     width: 20vw;
     float: right;
     padding-right: 2rem;
   }
-
 }
 
-.app_content{
+.app_content {
   position: relative;
   padding-top: 4rem;
   .MuiGrid-container {

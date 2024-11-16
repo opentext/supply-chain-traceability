@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { classNames, getEllipses } from "../../../utilities/Utils";
 import "./CustomToast.css";
-import { TbCircleCheckFilled } from "react-icons/tb";
-import { IoMdCloseCircle } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
+import { TbCircleCheckFilled, TbInfoTriangleFilled } from "react-icons/tb";
+import { IoMdCloseCircle, IoMdClose } from "react-icons/io";
+
 import { IoInformationCircleOutline } from "react-icons/io5";
-import { TbInfoTriangleFilled } from "react-icons/tb";
+
 import { FaFile } from "react-icons/fa";
 
 const ToastTypes = {
@@ -13,12 +13,12 @@ const ToastTypes = {
   INFO: "info",
   SUCCESS: "success",
   WARNING: "warning",
-}
+};
 
 const FILE_NAME_CLIP_COUNT = 38;
 const FILE_ERROR_CLIP_COUNT = 48;
 
-const Toast = ({
+function Toast({
   autoDismiss,
   children,
   details,
@@ -26,11 +26,14 @@ const Toast = ({
   onClose,
   type,
   isCloseable,
-}) => {
+}) {
   const [showDetails, setShowDetails] = useState(false);
-  const activeClassName = classNames("ewsm-message ewsm-message--is-header-bar", {
-    "ewsm-message--is-active": isOpen,
-  });
+  const activeClassName = classNames(
+    "ewsm-message ewsm-message--is-header-bar",
+    {
+      "ewsm-message--is-active": isOpen,
+    },
+  );
   const typeClassName = classNames("ewsm-message__container", {
     "ewsm-message--has-success": type === ToastTypes.SUCCESS,
     "ewsm-message--has-error": type === ToastTypes.ERROR,
@@ -59,71 +62,62 @@ const Toast = ({
     };
   }, [isOpen, autoDismiss, onClose]);
 
-  //TODO: This needs improvement as we are handling only file errors
+  // TODO: This needs improvement as we are handling only file errors
   const detailsMessage = (() =>
-    Object.entries(details).map(([key, value]) => {
+    Object.entries(details).map(([key, value]) => (
       // const errorText = value + "";
-      return (
-        <div className="otrc-toast-details" key={key}>
-          {type === ToastTypes.SUCCESS ? (
-            <TbCircleCheckFilled style={{ color: "green" }} />
-          ) : type === ToastTypes.ERROR ? (
-            <IoMdCloseCircle />
-          ) : type === ToastTypes.INFO ? (
-            <IoInformationCircleOutline />
-          ) : type === ToastTypes.WARNING ? (
-            <TbInfoTriangleFilled />
-          ) : (
-            <FaFile />
+      <div className="otrc-toast-details" key={key}>
+        {type === ToastTypes.SUCCESS ? (
+          <TbCircleCheckFilled style={{ color: "green" }} />
+        ) : type === ToastTypes.ERROR ? (
+          <IoMdCloseCircle />
+        ) : type === ToastTypes.INFO ? (
+          <IoInformationCircleOutline />
+        ) : type === ToastTypes.WARNING ? (
+          <TbInfoTriangleFilled />
+        ) : (
+          <FaFile />
+        )}
+        <div className="otrc-toast-details-content">
+          {type !== ToastTypes.SUCCESS && (
+            <>
+              <div
+                className="otrc-toast-details--is-file-name"
+                {...(key.length > FILE_NAME_CLIP_COUNT ? { title: key } : null)}
+              >
+                {getEllipses(key, FILE_NAME_CLIP_COUNT)}
+              </div>
+              <div
+                className="otrc-toast-details--is-file-error"
+                {...(value.length > FILE_ERROR_CLIP_COUNT
+                  ? { title: value }
+                  : null)}
+              >
+                {getEllipses(value, FILE_ERROR_CLIP_COUNT)}
+              </div>
+            </>
           )}
-          <div className="otrc-toast-details-content">
-            {type !== ToastTypes.SUCCESS && (
-              <>
-                <div
-                  className="otrc-toast-details--is-file-name"
-                  {...(key.length > FILE_NAME_CLIP_COUNT
-                    ? { title: key }
-                    : null)}
-                >
-                  {getEllipses(key, FILE_NAME_CLIP_COUNT)}
-                </div>
-                <div
-                  className="otrc-toast-details--is-file-error"
-                  {...(value.length > FILE_ERROR_CLIP_COUNT
-                    ? { title: value }
-                    : null)}
-                >
-                  {getEllipses(value, FILE_ERROR_CLIP_COUNT)}
-                </div>
-              </>
-            )}
-            {type === ToastTypes.SUCCESS && (
-              <>
-                <div
-                  className="otrc-toast-details--is-file-success"
-                  {...(value.length > FILE_NAME_CLIP_COUNT
-                    ? { title: value }
-                    : null)}
-                >
-                  {getEllipses(value, FILE_NAME_CLIP_COUNT)}
-                </div>
-              </>
-            )}
-          </div>
-          {type === ToastTypes.ERROR && (
-            <IoMdClose />
+          {type === ToastTypes.SUCCESS && (
+            <div
+              className="otrc-toast-details--is-file-success"
+              {...(value.length > FILE_NAME_CLIP_COUNT
+                ? { title: value }
+                : null)}
+            >
+              {getEllipses(value, FILE_NAME_CLIP_COUNT)}
+            </div>
           )}
         </div>
-      );
-    }))();
+        {type === ToastTypes.ERROR && <IoMdClose />}
+      </div>
+    )))();
 
-  const buildDetails = () => {
-    return React.Children.toArray(detailsMessage).map((detail, index) => (
+  const buildDetails = () =>
+    React.Children.toArray(detailsMessage).map((detail, index) => (
       <li key={index} className="ewsm-message__list-item">
         <div className="ewsm-message__list-content">{detail}</div>
       </li>
     ));
-  };
 
   return (
     <div className={activeClassName}>
@@ -134,7 +128,9 @@ const Toast = ({
           {React.Children.toArray(detailsMessage)?.length ? (
             <i className={detailsIconClassName} onClick={toggleDetails} />
           ) : null}
-          {isCloseable && <i className="ewsm-message__close" onClick={onClose} />}
+          {isCloseable && (
+            <i className="ewsm-message__close" onClick={onClose} />
+          )}
         </div>
         {React.Children.toArray(detailsMessage)?.length ? (
           <div className={detailsClassName}>
@@ -144,7 +140,7 @@ const Toast = ({
       </div>
     </div>
   );
-};
+}
 
 Toast.defaultProps = {
   autoDismiss: 0,

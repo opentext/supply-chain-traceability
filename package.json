@@ -1,28 +1,36 @@
 {
   "name": "supply-chain-management",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
+  "type": "module",
   "engines": {
-    "node": "20.10.0"
+    "node": "22.11.0"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.7",
+    "@mui/styles": "^6.1.7",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "1.7.7",
+    "body-parser": "^1.20.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "http-proxy-middleware": "^2.0.6",
-    "node-jose": "2.2.0",
-    "react": "^17.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
+    "oidc-client-ts": "^3.1.0",
+    "prop-types": "^15.8.1",
+    "react": "18.2.0",
     "react-data-table-component": "7.6.2",
-    "react-datepicker": "^3.3.0",
-    "react-dom": "^17.0.0",
+    "react-datepicker": "^7.5.0",
+    "react-dom": "18.2.0",
     "react-icons": "5.3.0",
-    "react-oidc-context": "^3.2.0",
-    "react-router-dom": "5.2.0",
-    "sass": "1.80.7",
+    "react-oidc-context": "3.2.0",
+    "react-router-dom": "6.21.1",
     "styled-components": "6.1.13",
+    "supply-chain-management": "file:",
     "vite": "^5.4.11",
     "vite-express": "^0.19.0",
     "vite-plugin-commonjs": "0.10.3"
@@ -34,6 +42,9 @@
     "start": "node server.js",
     "build": "vite build",
     "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "prettier:check": "npx prettier --check .",
+    "prettier:fix": "npx prettier --write .",
     "preview": "vite preview"
   },
   "eslintConfig": {
@@ -55,11 +66,24 @@
     "react-error-overlay": "6.0.9"
   },
   "devDependencies": {
-    "@babel/core": "7.16.0",
-    "@babel/plugin-proposal-private-property-in-object": "7.16.0",
-    "@babel/preset-react": "7.16.0"
-  },
-  "volta": {
-    "node": "20.10.0"
+    "@eslint/js": "^9.9.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "8.57.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-react-app": "7.0.1",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-jsx-a11y": "6.8.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-promise": "6.2.0",
+    "eslint-plugin-react": "7.34.2",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "sass-embedded": "^1.81.0",
+    "stylelint": "16.9.0",
+    "stylelint-config-standard": "36.0.1"
   }
 }

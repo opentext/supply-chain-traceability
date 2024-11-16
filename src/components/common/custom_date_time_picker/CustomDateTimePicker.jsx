@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { HiCalendar } from "react-icons/hi2";
-import "./datepicker.scss"
+import "./datepicker.scss";
 
-
-const CustomDateTimePicker = ({
+function CustomDateTimePicker({
   disabled,
   id,
   label,
@@ -19,51 +18,49 @@ const CustomDateTimePicker = ({
   htmlClass,
   maxDate,
   minDate,
-}) => {
-
-    const checkAndConstructDate = (date) => {
-    return date
-        ? typeof date === "string"
+}) {
+  const checkAndConstructDate = (date) =>
+    date
+      ? typeof date === "string"
         ? !isNaN(new Date(date).getDate())
-            ? new Date(date)
-            : null
+          ? new Date(date)
+          : null
         : date
-        : null;
-    };
+      : null;
 
-    const [selectedDate, setSelectedDate] = useState(
-      checkAndConstructDate(value)
+  const [selectedDate, setSelectedDate] = useState(
+    checkAndConstructDate(value),
+  );
+
+  useEffect(() => {
+    setSelectedDate(checkAndConstructDate(value));
+  }, [value]);
+
+  const changeHandler = (date) => {
+    setSelectedDate(date);
+    onChange(date);
+  };
+
+  function CustomInput(props, ref) {
+    return (
+      <div className="form-custom-input">
+        <label {...(id && { htmlFor: id })}>
+          {required && <span>* </span>}
+          {label}
+        </label>
+        <input
+          onClick={props.onClick}
+          ref={ref}
+          value={props.value || props.placeholder}
+          {...props}
+        />
+        <HiCalendar
+          className="custom-date-picker-icon"
+          onClick={props.onClick}
+        />
+      </div>
     );
-
-    useEffect(() => {
-      setSelectedDate(checkAndConstructDate(value));
-    }, [value]);
-
-    const changeHandler = (date) => {
-      setSelectedDate(date);
-      onChange(date);
-    };
-
-    const CustomInput = (props, ref) => {
-        return (
-          <div className="form-custom-input">
-            <label {...(id && { htmlFor: id })}>
-              {required && <span>* </span>}
-              {label}
-            </label>
-            <input
-                onClick={props.onClick}
-                ref={ref}
-                value={props.value || props.placeholder}
-                {...props}
-            />
-            <HiCalendar
-                className="custom-date-picker-icon"
-                onClick={props.onClick}
-            />
-          </div>
-        );
-    };
+  }
 
   return (
     <div>
@@ -85,7 +82,6 @@ const CustomDateTimePicker = ({
       />
     </div>
   );
-};
+}
 
 export default CustomDateTimePicker;
-

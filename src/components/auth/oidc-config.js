@@ -9,7 +9,7 @@ const OidcConfig = {
     window.history.replaceState(
       { authMsg: "authorized" },
       document.title,
-      window.location.pathname
+      window.location.pathname,
     );
   },
 };

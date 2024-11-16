@@ -28,7 +28,7 @@
 - We need an active standalone app in the given Organization and Tenant for Thrust bundle. This subscription will be used for OAuth client access to work with Core Capture, Information Intelligence and Developer Cloud APIs. Please note the confidential client id and confidential client secret which will be used to access the aforementioned APIs. Make sure all the required application users are added to the standalone apps, to be able to login to the app and work with different APIs. 
 
 ## Running the application
-- Download and install Node.js **v20.10.0**, with npm, from https://nodejs.org/en/download
+- Download and install Node.js **v22.11.0**, with npm, from https://nodejs.org/en/download
 
 - To run the application using Node.js follow these steps.
 

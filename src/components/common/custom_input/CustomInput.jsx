@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomInput = ({
+function CustomInput({
   autoFocus,
   disabled,
   id,
@@ -16,8 +16,8 @@ const CustomInput = ({
   onBlur,
   minlength,
   maxlength,
-  rows
-}) => {
+  rows,
+}) {
   const changeHandler = (e) => {
     onChange(e.target.value);
   };
@@ -34,7 +34,7 @@ const CustomInput = ({
           rows={rows || 2}
           minLength={minlength || 0}
           maxLength={maxlength || 1000}
-        ></textarea>
+        />
       ) : (
         <input
           {...(id && { id })}
@@ -53,6 +53,6 @@ const CustomInput = ({
       )}
     </div>
   );
-};
+}
 
 export default CustomInput;

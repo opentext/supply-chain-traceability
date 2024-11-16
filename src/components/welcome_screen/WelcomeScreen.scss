@@ -1,49 +1,48 @@
 .welcome {
-    box-shadow: rgba(0, 0, 0, 0.3);
-    position: relative;
-    border: 1px solid rgba(0, 0, 0, 0);
-  }
-  
-  .welcomeBox {
-    margin: 6px 6px 6px 6px;
-  }
-  
-  .welcomeContent {
-    font-size: 18px;
-    color: #333333;
-    font-weight: 200;
-  }
-  
-  .welcomeMessage {
-    padding: 8px 8px 0px 0px;
-  }
-  
-  .welcomeName {
-    padding: 0px 20px 20px;
-  }
-  
+  box-shadow: rgba(0, 0, 0, 0.3);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
 
-  .MuiGrid-spacing-xs-1 {
-    width: '100%' !important;
-  }
+.welcomeBox {
+  margin: 6px 6px 6px 6px;
+}
 
-  .tiles {
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 0px;
-    overflow: hidden;
-  }
-  
-  .imageContainer {
-    display: flex;
-    margin: 2px;
-    max-height: 250px;
-    overflow: hidden;
-  }
-  
-  .imageShipping {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -150px;
-  }
+.welcomeContent {
+  font-size: 18px;
+  color: #333333;
+  font-weight: 200;
+}
+
+.welcomeMessage {
+  padding: 8px 8px 0px 0px;
+}
+
+.welcomeName {
+  padding: 0px 20px 20px;
+}
+
+.MuiGrid-spacing-xs-1 {
+  width: "100%" !important;
+}
+
+.tiles {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0px;
+  overflow: hidden;
+}
+
+.imageContainer {
+  display: flex;
+  margin: 2px;
+  max-height: 250px;
+  overflow: hidden;
+}
+
+.imageShipping {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: -150px;
+}
