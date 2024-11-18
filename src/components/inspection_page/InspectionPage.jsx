@@ -2,15 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import './InspectionPage.scss';
 import axios from 'axios';
 import { Button, Grid2 } from '@mui/material';
-import DataTable from 'react-data-table-component';
 import {
-  FaCheckCircle,
   FaFilePdf,
   FaFileWord,
-  FaSpinner,
 } from 'react-icons/fa';
-import { PiWarningCircleFill } from 'react-icons/pi';
-import { MdDelete } from 'react-icons/md';
 import { BiSolidFileJpg } from 'react-icons/bi';
 import { useAuth } from 'react-oidc-context';
 import { useNavigate } from 'react-router-dom';
@@ -27,24 +22,24 @@ import CustomToast from '../common/custom_toast/CustomToast';
 import { REPORT_FILE_NAME } from '../../utilities/FileConstants';
 import InspectionForm from '../inspection_form/InspectionForm';
 import {
-  createTempUplaodFolder,
-  deleteFileToCoreContent,
+  createTempUploadFolder,
   listItemsFromCMS,
   setCCMUploadTempNode,
   updateExtractionDataToFile,
   updatePublicationDataToFile,
 } from '../../services/content_metadata/ContentMetadata';
+import InspectionTable from '../inspection_table/InspectionTable';
 
 function InspectionPage() {
   const navigate = useNavigate();
   const { rowData, setRowData } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth();
   const [isViewerLoading, setIsViewerLoading] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(null);
+
   const { extractionData, publicationData, setPublicationData } = useContext(AppContext);
   const [viewerLoaded, setIsViewerLoaded] = useState(false);
   const publicationService = new Publications(user);
-
+  const [selectedRow, setSelectedRow] = useState(null);
   const [name, setName] = useState('');
   const [description, setDescripton] = useState('');
   const [batch, setBatch] = useState('');
@@ -102,7 +97,7 @@ function InspectionPage() {
   };
 
   const createTempFolder = () => {
-    createTempUplaodFolder(user);
+    createTempUploadFolder(user);
   };
 
   useEffect(() => {
@@ -136,32 +131,6 @@ function InspectionPage() {
   }, [user, isAuthenticated]);
 
   useEffect(() => {
-    const updatedRowData = rowData.map((row) => {
-      if (extractionData[row.name]) {
-        if (
-          !extractionData[row.name].isInProgress
-          && extractionData[row.name].data
-        ) {
-          return { ...row, metadataExtraction: 'Success' };
-        }
-        if (
-          !extractionData[row.name].isInProgress
-          && !extractionData[row.name].data
-        ) {
-          return { ...row, metadataExtraction: 'Warning' };
-        }
-        return { ...row, metadataExtraction: 'Running' };
-      }
-      return row;
-    });
-
-    if (JSON.stringify(updatedRowData) !== JSON.stringify(rowData)) {
-      setRowData(updatedRowData);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extractionData, rowData]);
-
-  useEffect(() => {
     rowData.forEach((row) => {
       if (extractionData[row.name] && !extractionData[row.name].isInProgress) {
         // eslint-disable-next-line no-param-reassign
@@ -188,112 +157,6 @@ function InspectionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extractionData]);
 
-  const columns = [
-    {
-      name: 'Name',
-      id: 'name',
-      grow: 4,
-      ignoreRowClick: false,
-      selector: (row) => row.name,
-      cell: (row) => {
-        if (row.name.includes('pdf')) {
-          return (
-            <div
-              onClick={() => openViewer(row)}
-              style={{ paddingLeft: '0px' }}
-            >
-              <FaFilePdf
-                style={{ color: '#BA150D', height: '1.25em', width: '2em' }}
-              />
-              <span>{row.name}</span>
-            </div>
-          );
-        }
-        if (row.name.includes('docx')) {
-          return (
-            <div
-              // eslint-disable-next-line no-use-before-define
-              onClick={() => openViewer(row)}
-              style={{ paddingLeft: '0px' }}
-            >
-              <FaFileWord
-                style={{ color: '#13386D', height: '1.25em', width: '2em' }}
-              />
-              <span>{row.name}</span>
-            </div>
-          );
-        }
-      },
-    },
-    {
-      name: 'File size',
-      id: 'filesize',
-      grow: 1,
-      selector: (row) => row.filesize,
-    },
-    {
-      name: 'Status',
-      id: 'metadataExtraction',
-      grow: 1,
-      ignoreRowClick: false,
-      selector: (row) => row.metadataExtraction,
-      cell: (row) => {
-        if (row.metadataExtraction === 'Success') {
-          return (
-            <div onClick={() => openViewer(row)}>
-              <FaCheckCircle
-                style={{ color: 'green', height: '1.25em', width: '2em' }}
-              />
-            </div>
-          );
-        }
-        if (row.metadataExtraction === 'Warning') {
-          return (
-            <div onClick={() => openViewer(row)}>
-              <PiWarningCircleFill
-                style={{ color: 'orange', height: '1.25em', width: '2em' }}
-              />
-            </div>
-          );
-        }
-        if (row.metadataExtraction === 'Running') {
-          return (
-            <div onClick={() => openViewer(row)}>
-              <FaSpinner
-                style={{
-                  color: 'blue',
-                  height: '1.25em',
-                  width: '2em',
-                  marginRight: '0.25em',
-                  top: '0.1em',
-                  animation: 'spin 1s infinite linear',
-                }}
-              />
-            </div>
-          );
-        }
-      },
-    },
-    {
-      name: '',
-      id: 'actions',
-      grow: 1,
-      ignoreRowClick: true,
-      cell: (row) => (
-        <div>
-          <MdDelete
-            style={{ height: '1.25em', width: '2em', cursor: 'pointer' }}
-            onClick={(e) => {
-              e.stopPropagation();
-              closeDialog();
-              deleteFileToCoreContent(user, row.id, refreshTable);
-            }}
-          />
-        </div>
-      ),
-    },
-  ];
-
   const [downloadHref, setDownloadHref] = useState('');
   const [openDocumentDialogView, setOpenDocumentDialogView] = useState(false);
   const panelLabel = {
@@ -301,26 +164,6 @@ function InspectionPage() {
     type: 'label',
     value: 'Classified and Extracted metadata',
   };
-
-  const waitForElementToBeVisible = (id) => new Promise((resolve) => {
-    const interval = setInterval(() => {
-      const element = document.getElementById('IGCDisplaylistPage0');
-      if (element && element.offsetParent !== null) {
-        clearInterval(interval);
-        openDetails(id);
-        resolve(id);
-      }
-    }, 100); // Check every 100ms
-  });
-
-  const conditionalRowStyles = [
-    {
-      when: (row) => row.id === selectedRow,
-      style: {
-        backgroundColor: '#eeeeee',
-      },
-    },
-  ];
 
   const openViewer = async (row) => {
     setSelectedRow(row.id);
@@ -348,6 +191,17 @@ function InspectionPage() {
     }
   };
 
+  const waitForElementToBeVisible = (id) => new Promise((resolve) => {
+    const interval = setInterval(() => {
+      const element = document.getElementById('IGCDisplaylistPage0');
+      if (element && element.offsetParent !== null) {
+        clearInterval(interval);
+        openDetails(id);
+        resolve(id);
+      }
+    }, 100); // Check every 100ms
+  });
+
   const openDetails = (id) => {
     const filteredData = rowData.filter((row) => row.id === id);
     if (
@@ -358,7 +212,7 @@ function InspectionPage() {
       setShowInvoiceProperties(true);
       setDocumentMetadata({
         id: 'fd5',
-        label: (
+        formLabel: (
           <div className="fileTypeSide">
             {filteredData[0].icon === 'MimeWord32' ? (
               <FaFileWord
@@ -408,8 +262,6 @@ function InspectionPage() {
       user,
       setRowData,
       extractionData,
-      publicationData,
-      updatePublicationData,
     );
   };
 
@@ -509,32 +361,13 @@ function InspectionPage() {
                 updatePublicationData={updatePublicationData}
               />
 
-              <div className="document_list_table">
-                <div className="datatable-wrapper">
-                  <DataTable
-                    className="datatable-wrapper__table"
-                    columns={columns}
-                    data={rowData}
-                    highlightOnHover
-                    pointerOnHover
-                    onRowClicked={openViewer}
-                    conditionalRowStyles={conditionalRowStyles}
-                  />
+              <InspectionTable
+                openViewer={openViewer}
+                refreshTable={refreshTable}
+                selectedRow={selectedRow}
+                closeDialog={closeDialog}
+              />
 
-                  {rowData?.length <= 0 && (
-                    <div className="file-list--empty">
-                      <img
-                        src="./images/empty_folder_file.svg"
-                        alt="Add file"
-                        onClick={refreshTable}
-                      />
-                      <div className="file-list__body-content">
-                        The list is empty.
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
             </Grid2>
           </Grid2>
 
@@ -552,7 +385,7 @@ function InspectionPage() {
                   closeDialog={closeDialog}
                   setIsViewerLoading={setIsViewerLoading}
                   publicationData={downloadHref}
-                  accessToken={user}
+                  accessToken={user.access_token}
                   setIsViewerLoaded={setIsViewerLoaded}
                   viewer={viewer}
                 />

@@ -1,5 +1,5 @@
-import React from "react";
-import "./InfoIcon.scss";
+import PropTypes from 'prop-types';
+import './InfoIcon.scss';
 
 function InfoIcon({ title, icon }) {
   return (
@@ -11,4 +11,9 @@ function InfoIcon({ title, icon }) {
     </div>
   );
 }
+
+InfoIcon.propTypes = {
+  title: PropTypes.string,
+  icon: PropTypes.string,
+};
 export default InfoIcon;

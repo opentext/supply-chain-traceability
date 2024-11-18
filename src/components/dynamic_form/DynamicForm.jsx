@@ -4,7 +4,7 @@ import { Input, TextField } from '@mui/material';
 import { classNames } from '../../utilities/Utils';
 
 function DynamicForm({
-  label, fields, id,
+  formLabel, fields, id,
 }) {
   const className = classNames('ot-dynamic-form__fields', {
     [id]: id,
@@ -14,7 +14,9 @@ function DynamicForm({
     const fieldsEntries = [];
 
     fields.entries.forEach((entry, index) => {
-      const { name, type, value } = entry;
+      const {
+        name, label, type, value,
+      } = entry;
       fieldsEntries.push(
         // eslint-disable-next-line react/no-array-index-key
         <div {...{ className: 'control-fields' }} key={`${name}${index}`}>
@@ -22,14 +24,26 @@ function DynamicForm({
           {type === 'input' && (
             <TextField
               type="text"
-              label={name}
+              label={label}
               id={name}
               value={value}
               required={false}
+              fullWidth
               variant="standard"
               slotProps={{
                 input: {
                   readOnly: true,
+                },
+              }}
+              sx={{
+                '& .MuiInput-underline:before': {
+                  borderBottom: 'none !important', // Removes the default border
+                },
+                '& .MuiInput-underline:hover:before': {
+                  borderBottom: 'none !important', // Removes the border on hover
+                },
+                '& .MuiInput-underline:after': {
+                  borderBottom: 'none !important', // Prevents the border on focus
                 },
               }}
             />
@@ -53,9 +67,9 @@ function DynamicForm({
 
   return (
     <div className={className}>
-      {label && (
+      {formLabel && (
         <div className="control-fields" style={{ fontWeight: 'bold' }}>
-          {label}
+          {formLabel}
         </div>
       )}
       {renderFieldsByEntries()}

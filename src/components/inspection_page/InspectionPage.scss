@@ -193,61 +193,6 @@
     }
   }
 
-  .spinner-section {
-    width: 60px;
-    height: 60px;
-    border: 12px solid #2e3d98;
-    border-radius: 50%;
-    border-bottom-color: transparent;
-    border-right-color: transparent;
-    border-left-color: transparent;
-    transform: rotate(45deg);
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    left: 500px;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    animation: rotation 1.5s infinite linear;
-    @keyframes rotation {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(359deg);
-      }
-    }
-  }
-
-  .spinner-base {
-    border: 12px solid #d6d5e8;
-    border-radius: 50px;
-    height: 60px;
-    width: 60px;
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 500px;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-  }
-
-  .spinner-border {
-    border: 22px solid #ffffff;
-    border-radius: 60px;
-    height: 50px;
-    width: 50px;
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 500px;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-  }
-
   .header_button {
     float: right;
     margin-right: 32px;

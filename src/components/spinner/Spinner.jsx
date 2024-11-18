@@ -1,5 +1,4 @@
-import React from "react";
-import "./Spinner.scss";
+import './Spinner.scss';
 
 function Spinner() {
   return (

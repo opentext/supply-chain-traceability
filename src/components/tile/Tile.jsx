@@ -1,6 +1,6 @@
-import Box from "@mui/material/Box";
-import React from "react";
-import "./Tile.scss";
+/* eslint-disable react/prop-types */
+import Box from '@mui/material/Box';
+import './Tile.scss';
 
 function Tile({ children }) {
   return (

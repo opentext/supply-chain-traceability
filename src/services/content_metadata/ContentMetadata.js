@@ -212,7 +212,7 @@ function listItemsFromCMS(user, setRowData, extractionData) {
     .catch(() => {});
 }
 
-function createTempUplaodFolder(user) {
+function createTempUploadFolder(user) {
   const timeStamp = Date.now();
   const tempUploadFolderName = `${user.email}_${timeStamp}`;
   const data = {
@@ -277,7 +277,7 @@ export {
   deleteFileToCoreContent,
   getCMWSNode,
   listItemsFromCMS,
-  createTempUplaodFolder,
+  createTempUploadFolder,
   deleteTempFolder,
   setCCMUploadTempNode,
   getCCMUploadTempNode,

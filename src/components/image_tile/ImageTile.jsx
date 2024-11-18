@@ -1,13 +1,15 @@
-import React from "react";
-import "./ImageTile.scss";
-import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
+import './ImageTile.scss';
+import { useNavigate } from 'react-router-dom';
 
-function ImageTile({ title, image, link, externalUrl }) {
+function ImageTile({
+  title, image, link, externalUrl,
+}) {
   const navigate = useNavigate();
 
   const handleClick = () => {
     if (externalUrl) {
-      window.open(externalUrl, "_blank");
+      window.open(externalUrl, '_blank');
     } else {
       navigate(link);
     }
@@ -24,5 +26,12 @@ function ImageTile({ title, image, link, externalUrl }) {
     </div>
   );
 }
+
+ImageTile.propTypes = {
+  title: PropTypes.string,
+  image: PropTypes.string,
+  link: PropTypes.string,
+  externalUrl: PropTypes.string,
+};
 
 export default ImageTile;

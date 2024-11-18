@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import { HiCalendar } from "react-icons/hi2";
-import "./datepicker.scss";
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import { HiCalendar } from 'react-icons/hi2';
+import './datepicker.scss';
 
 function CustomDateTimePicker({
   disabled,
@@ -19,14 +22,13 @@ function CustomDateTimePicker({
   maxDate,
   minDate,
 }) {
-  const checkAndConstructDate = (date) =>
-    date
-      ? typeof date === "string"
-        ? !isNaN(new Date(date).getDate())
-          ? new Date(date)
-          : null
-        : date
-      : null;
+  const checkAndConstructDate = (date) => (date
+    ? typeof date === 'string'
+      ? !Number.isNaN(new Date(date).getDate())
+        ? new Date(date)
+        : null
+      : date
+    : null);
 
   const [selectedDate, setSelectedDate] = useState(
     checkAndConstructDate(value),

@@ -24,9 +24,19 @@ function App() {
   }, [isAuthenticated, isLoading, signinRedirect]);
 
   return (
-    <div className="App" hidden={!isAuthenticated}>
-      <Header logout={signoutRedirect} />
-      {toastDetails.isToastOpen && (
+    <>
+      <div style={{ minHeightheight: '580px' }}>
+        {isLoading && (
+        <div>
+          <div className="spinner-border" style={{ left: '0px' }} />
+          <div className="spinner-base" style={{ left: '0px' }} />
+          <div className="spinner-section" style={{ left: '0px' }} />
+        </div>
+        )}
+      </div>
+      <div className="App" hidden={!isAuthenticated}>
+        <Header logout={signoutRedirect} />
+        {toastDetails.isToastOpen && (
         <CustomToast
           type={toastDetails.type}
           isOpen={toastDetails.isToastOpen}
@@ -35,25 +45,26 @@ function App() {
         >
           <span title={toastDetails.message}>{toastDetails.message}</span>
         </CustomToast>
-      )}
-      <Backdrop style={{ zIndex: 999999 }} open={showBackdrop}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <BrowserRouter>
-        <div className="app_content">
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={<NewWelcomeScreen name={user?.profile?.name} />}
-            />
+        )}
+        <Backdrop style={{ zIndex: 999999 }} open={showBackdrop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <BrowserRouter>
+          <div className="app_content">
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={<NewWelcomeScreen name={user?.profile?.name} />}
+              />
 
-            <Route path="/upload" element={<InspectionPage />} />
-            <Route path="/inspection/:nodeId" element={<BusinessWorkspace />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </div>
+              <Route path="/upload" element={<InspectionPage />} />
+              <Route path="/inspection/:nodeId" element={<BusinessWorkspace />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
 

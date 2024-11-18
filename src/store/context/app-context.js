@@ -1,17 +1,17 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 const AppContext = createContext({
   setToastDetails: () => {},
   startLoading: () => {},
   stopLoading: () => {},
-  cmAccessToken: "",
+  cmAccessToken: '',
   setCMAccessToken: () => {},
-  extractionData: "",
+  extractionData: '',
   setExtractionData: () => {},
-  publicationData: "",
+  publicationData: '',
   setPublicationData: () => {},
   closeToast: () => {},
-  toastDetails: "",
+  toastDetails: '',
   rowData: [],
   setRowData: () => {},
 });

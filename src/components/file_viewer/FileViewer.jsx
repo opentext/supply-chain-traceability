@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import "./FileViewer.css";
+/* eslint-disable react/forbid-prop-types */
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import './FileViewer.css';
+import PropTypes from 'prop-types';
 
-const VIEWER_ID = "file-viewer-root";
+const VIEWER_ID = 'file-viewer-root';
 
 const sampleLayout = {
-  topToolbar: "sampleToolbar",
+  topToolbar: 'sampleToolbar',
   sampleToolbar: {
-    left: [{ component: "ZoomInButton" }, { component: "ZoomOutButton" }],
-    center: [{ component: "TitleText", style: { marginLeft: "2em" } }],
-    right: [{ component: "CloseButton" }],
+    left: [{ component: 'ZoomInButton' }, { component: 'ZoomOutButton' }],
+    center: [{ component: 'TitleText', style: { marginLeft: '2em' } }],
+    right: [{ component: 'CloseButton' }],
   },
-  container: { component: "PageContainer", layoutKey: "sampleMainLayout" },
+  container: { component: 'PageContainer', layoutKey: 'sampleMainLayout' },
   sampleMainLayout: {
-    panes: [{ component: "PageContainer" }],
+    panes: [{ component: 'PageContainer' }],
   },
 };
 
@@ -26,12 +28,12 @@ function FileViewer({
   viewer,
 }) {
   const [bravaApi, setBravaApi] = useState(null);
-  const publicationStatus = "Complete";
+  const publicationStatus = 'Complete';
 
   const loadViewer = (data) => {
-    const scriptEl = document.createElement("script");
+    const scriptEl = document.createElement('script');
     scriptEl.appendChild(document.createTextNode(data));
-    document.getElementsByTagName("head")[0].appendChild(scriptEl);
+    document.getElementsByTagName('head')[0].appendChild(scriptEl);
   };
 
   const loadBravaViewer = async () => {
@@ -43,7 +45,7 @@ function FileViewer({
           }/viewer/api/v1/viewers/brava-view-1.x/loader`,
           {
             headers: {
-              Authorization: `Bearer ${accessToken.access_token}`,
+              Authorization: `Bearer ${accessToken}`,
             },
           },
         )
@@ -58,8 +60,7 @@ function FileViewer({
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.addEventListener("bravaReady", (event) => {
+    window.addEventListener('bravaReady', (event) => {
       const currentOrigin = window.location.origin;
       if (event.origin && event.origin !== currentOrigin) {
         return;
@@ -70,10 +71,10 @@ function FileViewer({
           setIsViewerLoaded(false);
         });
         window.addEventListener(`${event.detail}-failureNotification`, (e) => {
-          if (e.detail.type === "svgPageLoadFailure") {
-            const viewer = window.viewerApi;
-            viewer.clearViewer();
-            viewer.viewPublication(e.detail.details.pid);
+          if (e.detail.type === 'svgPageLoadFailure') {
+            const viewerDisplaying = window.viewerApi;
+            viewerDisplaying.clearViewer();
+            viewerDisplaying.viewPublication(e.detail.details.pid);
           }
         });
         window.viewerApi = window[event.detail];
@@ -91,7 +92,7 @@ function FileViewer({
   useEffect(() => {
     if (bravaApi) {
       bravaApi.setHttpHeaders({
-        Authorization: `Bearer ${accessToken.access_token}`,
+        Authorization: `Bearer ${accessToken}`,
       });
       bravaApi.addPublication(publicationData, true);
       bravaApi.setLayout(sampleLayout);
@@ -100,11 +101,20 @@ function FileViewer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bravaApi, publicationData]);
 
-  if (publicationStatus !== "Complete") {
+  if (publicationStatus !== 'Complete') {
     return null;
   }
 
   return <div id={VIEWER_ID} />;
 }
+
+FileViewer.propTypes = {
+  closeDialog: PropTypes.func,
+  publicationData: PropTypes.object,
+  accessToken: PropTypes.string,
+  setIsViewerLoading: PropTypes.func,
+  setIsViewerLoaded: PropTypes.func,
+  viewer: PropTypes.string,
+};
 
 export default FileViewer;

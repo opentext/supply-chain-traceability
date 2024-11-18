@@ -1,5 +1,6 @@
-import React from "react";
-
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/no-autofocus */
 function CustomInput({
   autoFocus,
   disabled,
@@ -27,7 +28,7 @@ function CustomInput({
         {required && <span>* </span>}
         {label}
       </label>
-      {type === "textarea" ? (
+      {type === 'textarea' ? (
         <textarea
           {...(id && { id })}
           placeholder=""
@@ -40,7 +41,7 @@ function CustomInput({
           {...(id && { id })}
           name={name}
           type={type}
-          placeholder={readOnly ? "" : placeholder}
+          placeholder={readOnly ? '' : placeholder}
           value={value}
           required={required}
           readOnly={readOnly}
