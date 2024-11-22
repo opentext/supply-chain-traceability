@@ -7,6 +7,12 @@
 
 - We need an active Core Content extension app subscription in the given Organization and Tenant. This subscription will be used for OAuth client access to work with Core Content, Content Metadata Service, Content Storage Service and  related APIs. Please note the public OAuth client for this app, which will also be used for login to the sample app. Make sure all the required application users are added to this extension app, to be able to login to the app and work with different APIs. To be able to work with Content Aviator in the Business Workspace, the corresponding user needs to be added as a Subscription Admin.
 
+## Folder creation 
+- Create two folders in the Core Content subscription under the Enterprise folder.
+	- **uploaded documents**
+	- **reports**
+- Make sure you have the node ids for these folders handy to be updated in the env file as required.   
+
 ## Import Document Types and Business Workspaces
 - As a Core Content subscription Admin, import all the required document type and business workspace definitions into the corresponding subscription from [resources](https://github.com/opentext/supply-chain-traceability/blob/main/resources/core_content)
 
@@ -14,12 +20,6 @@
 
 ## Business Workspace Integration Widget
 - For setting up trusted site and service account configurations for the Business Workspace integration widget, please follow the steps mentioned at https://developer.opentext.com/saasapps/products/core-content/documentation/integration-widget-guide/4 
-
-## Folder creation 
-- Create two folders in the Core Content subscription under the Enterprise folder.
-	- **uploaded documents**
-	- **reports**
-- Make sure you have the node ids for these folders handy to be updated in the env file as required.   
 
 ## Public Service Client Redirect URL
 - In the Admin Center (organization link available under the Console tab when logged in to developer.opentext.com), navigate to ***/[Organization Name]/Apps/[Extension App Name]/Clients*** and add http://127.0.0.1:4000  as redirect URL for the public service client.
